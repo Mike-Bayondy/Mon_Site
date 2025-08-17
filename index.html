@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edouard Mike Bayondy — Édition vidéo, Premiere Pro & After Effects</title>
+  <meta name="description" content="Portfolio et ressources d'Edouard Mike Bayondy : montage vidéo, motion design, tutoriels Premiere Pro & After Effects, serveur Discord, contact pro." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0b10;
+      --panel: #111218;
+      --muted: #9aa0ab;
+      --text: #f6f7fb;
+      --brand: #3b82f6; /* bleu */
+      --brand-2: #8b5cf6; /* violet */
+      --ring: rgba(59,130,246,.35);
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --grid-gap: clamp(14px, 2vw, 22px);
+      --max: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial, sans-serif;
+      color:var(--text); background: radial-gradient(1000px 600px at 70% -10%, rgba(59,130,246,.15), transparent),
+                            radial-gradient(900px 500px at 10% -20%, rgba(139,92,246,.12), transparent),
+                            var(--bg);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* Layout */
+    .container{width:100%; max-width:var(--max); margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:var(--grid-gap)}
+
+    /* Topbar */
+    .topbar{position:sticky; top:0; z-index:50; backdrop-filter: blur(8px);
+      background:rgba(11,11,16,.6); border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{font-weight:800; letter-spacing:.2px}
+    .brand span{color:var(--brand)}
+    .navlinks{display:flex; gap:6px}
+    .navlinks a{padding:8px 12px; border-radius:12px; font-weight:600; color:#d6d9e0}
+    .navlinks a:hover{background:rgba(255,255,255,.06)}
+
+    /* Mobile nav (CSS only) */
+    .menu-toggle{display:none}
+    .hamburger{display:none; width:42px; height:42px; place-items:center; border-radius:12px; border:1px solid rgba(255,255,255,.08)}
+    .hamburger span{width:20px; height:2px; background:#e9ecf2; position:relative; display:block}
+    .hamburger span::before,.hamburger span::after{content:""; position:absolute; left:0; width:100%; height:2px; background:#e9ecf2}
+    .hamburger span::before{top:-6px} .hamburger span::after{top:6px}
+
+    @media (max-width: 860px){
+      .navlinks{display:none}
+      .hamburger{display:grid}
+      .menu-toggle:checked ~ .navlinks-mobile{max-height:400px; opacity:1}
+      .navlinks-mobile{display:grid; gap:8px; overflow:hidden; max-height:0; opacity:0; transition:all .35s ease; padding:0 0 12px}
+      .navlinks-mobile a{padding:10px 14px; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+    }
+
+    /* Buttons */
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:16px; font-weight:700; letter-spacing:.2px}
+    .btn-primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:0 10px 25px rgba(59,130,246,.35)}
+    .btn-outline{border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.02)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn:focus{outline:2px solid var(--ring); outline-offset:2px}
+
+    /* Hero */
+    .hero{padding:70px 0}
+    .hero .wrap{display:grid; grid-template-columns: 1.12fr .88fr; gap:var(--grid-gap); align-items:center}
+    .kicker{display:inline-flex; gap:10px; align-items:center; padding:6px 10px; border-radius:999px; background:#0e1018; border:1px solid rgba(255,255,255,.08); color:#d0d5df; font-size:12px}
+    .title{font-size:clamp(32px, 6vw, 54px); line-height:1.05; margin:12px 0 8px; font-weight:800}
+    .lead{color:var(--muted); max-width:52ch}
+    .hero-card{border-radius:24px; background:linear-gradient(180deg,#11131b,#0d0f15); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); padding:18px}
+    .aspect-video{aspect-ratio:16/9; border-radius:18px; background:radial-gradient(120% 120% at 0% 0%, rgba(59,130,246,.25), transparent), #0b0d14; display:grid; place-items:center}
+    .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .chip{padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); font-size:13px}
+
+    @media (max-width: 980px){
+      .hero .wrap{grid-template-columns: 1fr}
+    }
+
+    /* Sections */
+    section{padding:64px 0}
+    .section-head{margin-bottom:20px}
+    .section-title{font-size: clamp(22px, 3.5vw, 34px); font-weight:800; margin:0}
+    .section-sub{color:var(--muted); margin-top:6px}
+
+    /* Cards */
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:var(--grid-gap)}
+    .card{border-radius:var(--radius); background:var(--panel); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)}
+    .card-body{padding:18px}
+    .card-title{font-weight:700; margin:0 0 6px}
+    .card-desc{color:var(--muted); margin:0}
+
+    @media (max-width: 980px){
+      .cards{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .cards{grid-template-columns: 1fr}
+    }
+
+    /* Portfolio grid */
+    .portfolio{display:grid; grid-template-columns: repeat(3, 1fr); gap:var(--grid-gap)}
+    .thumb{border-top-left-radius:var(--radius); border-top-right-radius:var(--radius); background:#0e1016; aspect-ratio:16/9; display:grid; place-items:center}
+    .card-foot{display:flex; align-items:center; justify-content:space-between; padding:0 18px 16px}
+    .badge{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); color:#d9deea}
+
+    @media (max-width: 980px){
+      .portfolio{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .portfolio{grid-template-columns: 1fr}
+    }
+
+    /* Contact */
+    .contact{display:grid; grid-template-columns: 1.1fr .9fr; gap:var(--grid-gap)}
+    .field{display:grid; gap:6px}
+    label{font-weight:600}
+    input, textarea{width:100%; padding:12px 14px; background:#0c0f15; color:var(--text); border:1px solid rgba(255,255,255,.12); border-radius:14px}
+    input::placeholder, textarea::placeholder{color:#7f8694}
+    textarea{min-height:120px; resize:vertical}
+    .muted{color:var(--muted)}
+
+    @media (max-width: 980px){
+      .contact{grid-template-columns: 1fr}
+    }
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.08); color:#cfd4df}
+    .foot{display:flex; gap:14px; align-items:center; justify-content:space-between; padding:22px 0; flex-wrap:wrap}
+
+    /* Focus visible for a11y */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid var(--ring); outline-offset:2px}
+  </style>
+</head>
+<body>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#accueil">Edouard Mike <span>Bayondy</span></a>
+
+        <!-- Mobile hamburger -->
+        <label for="menu" class="hamburger" aria-label="Ouvrir le menu"><span></span></label>
+        <input id="menu" class="menu-toggle" type="checkbox" aria-hidden="true" />
+
+        <nav class="navlinks" aria-label="Navigation principale">
+          <a href="#a-propos">À propos</a>
+          <a href="#outils">Outils</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#tutos">Tutoriels</a>
+          <a href="#discord">Discord</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <!-- mobile links -->
+      <nav class="navlinks-mobile" aria-label="Navigation mobile">
+        <a href="#a-propos">À propos</a>
+        <a href="#outils">Outils</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#tutos">Tutoriels</a>
+        <a href="#discord">Discord</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="accueil" class="hero">
+    <div class="container">
+      <div class="wrap">
+        <div>
+          <span class="kicker">Montage • Motion • Creator Tools</span>
+          <h1 class="title">Salut, moi c’est <span style="color:var(--brand)">Edouard Mike Bayondy</span></h1>
+          <p class="lead">J’aide les créateurs à monter des vidéos impactantes avec <strong>Premiere Pro</strong>, <strong>After Effects</strong> et d’autres outils. Sur ce site : mes projets, des tutos, des presets et un serveur Discord pour progresser.</p>
+          <p style="margin:18px 0 0; display:flex; gap:12px; flex-wrap:wrap">
+            <a class="btn btn-primary" href="#portfolio" aria-label="Voir mes projets">Voir mes projets</a>
+            <a class="btn btn-outline" href="#tutos" aria-label="Voir les tutoriels">Tutos rapides</a>
+          </p>
+          <div class="chips">
+            <span class="chip">Qualité clean</span>
+            <span class="chip">Workflow rapide</span>
+            <span class="chip">Astuces concrètes</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="aspect-video">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 10.5V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-3.5l5 3.5V7l-5 3.5Z" stroke="#e6ebff" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="chips">
+            <span class="chip">Transitions fluides</span>
+            <span class="chip">Cuts précis</span>
+            <span class="chip">FX propres</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A PROPOS -->
+  <section id="a-propos">
+    <div class="container">
+      <header class="section-head">
+        <h2 class="section-title">À propos</h2>
+        <p class="section-sub">Mon parcours et ma vision du montage</p>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Montage narratif</h3>
+            <p class="card-desc">Storytelling, rythme, sound design — pour capter l’attention dès les 3 premières secondes.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Motion design propre</h3>
+            <p class="card-desc">Titres, lower-thirds, transitions et animations typographiques avec After Effects.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Workflow efficace</h3>
+            <p class="card-desc">Templates, presets, organisation de projet pour livrer plus vite.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTILS -->
+  <section id="outils">
+    <div class="container">
+      <header class="section-head">
+        <h2 class="section-title">Formations & Outils</h2>
+        <p class="section-sub">Premiere Pro • After Effects • Audition • DaVinci • CapCut • Discord</p>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Premiere Pro</h3>
+            <p class="card-desc">Montage, colorimétrie de base, sous-titres auto, raccourcis, templates.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">After Effects</h3>
+            <p class="card-desc">Motion clean: textes, masques, tracking, expressions simples.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">DaVinci Resolve</h3>
+            <p class="card-desc">Étalo rapide et LUTs propres pour YouTube & TikTok.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Audio & Sound Design</h3>
+            <p class="card-desc">Nettoyage, EQ/Comp, transitions sonores et mixage.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Shorts / Reels</h3>
+            <p class="card-desc">Formats verticaux, hooks, sous-titres et rythme platform-first.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Serveur Discord</h3>
+            <p class="card-desc">Challenges, feedbacks de montage et entraide.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <header class="section-head">
+        <h2 class="section-title">Portfolio</h2>
+        <p class="section-sub">Quelques projets récents (remplace les liens par les tiens)</p>
+      </header>
+      <div class="portfolio">
+        <!-- 6 items placeholder -->
+        <!-- Item -->
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎬</div>
+          <div class="card-body">
+            <h3 class="card-title">Projet #1</h3>
+            <p class="card-desc">Client / Concept • 2025</p>
+          </div>
+          <div class="card-foot">
+            <a class="btn btn-outline" href="#">Voir la vidéo</a>
+            <span class="badge">YouTube</span>
+          </div>
+        </article>
+        <!-- Duplicate pattern quickly -->
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎬</div>
+          <div class="card-body">
+            <h3 class="card-title">Projet #2</h3>
+            <p class="card-desc">Client / Concept • 2025</p>
+          </div>
+          <div class="card-foot">
+            <a class="btn btn-outline" href="#">Voir la vidéo</a>
+            <span class="badge">TikTok</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎬</div>
+          <div class="card-body">
+            <h3 class="card-title">Projet #3</h3>
+            <p class="card-desc">Client / Concept • 2025</p>
+          </div>
+          <div class="card-foot">
+            <a class="btn btn-outline" href="#">Voir la vidéo</a>
+            <span class="badge">Instagram</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎬</div>
+          <div class="card-body">
+            <h3 class="card-title">Projet #4</h3>
+            <p class="card-desc">Client / Concept • 2025</p>
+          </div>
+          <div class="card-foot">
+            <a class="btn btn-outline" href="#">Voir la vidéo</a>
+            <span class="badge">YouTube</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎬</div>
+          <div class="card-body">
+            <h3 class="card-title">Projet #5</h3>
+            <p class="card-desc">Client / Concept • 2025</p>
+          </div>
+          <div class="card-foot">
+            <a class="btn btn-outline" href="#">Voir la vidéo</a>
+            <span class="badge">Shorts</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎬</div>
+          <div class="card-body">
+            <h3 class="card-title">Projet #6</h3>
+            <p class="card-desc">Client / Concept • 2025</p>
+          </div>
+          <div class="card-foot">
+            <a class="btn btn-outline" href="#">Voir la vidéo</a>
+            <span class="badge">Reels</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUTORIELS -->
+  <section id="tutos">
+    <div class="container">
+      <header class="section-head">
+        <h2 class="section-title">Tutoriels rapides</h2>
+        <p class="section-sub">Des guides courts et pratiques pour aller droit au but</p>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Sous-titres auto propres (Premiere)</h3>
+            <p class="card-desc">~ 5 min</p>
+            <p style="margin-top:10px"><a class="btn btn-outline" href="#">Regarder</a> <span class="badge">Gratuit</span></p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Tracking texte dynamique (AE)</h3>
+            <p class="card-desc">~ 7 min</p>
+            <p style="margin-top:10px"><a class="btn btn-outline" href="#">Regarder</a> <span class="badge">Gratuit</span></p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Preset de cuts YouTube</h3>
+            <p class="card-desc">~ 3 min</p>
+            <p style="margin-top:10px"><a class="btn btn-outline" href="#">Regarder</a> <span class="badge">Gratuit</span></p>
+          </div>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:var(--grid-gap)">
+        <div class="card-body">
+          <h3 class="card-title">Pack gratuit – 10 presets essentiels</h3>
+          <p class="card-desc">Transitions, titrages, zooms, sous-titres : un pack pour accélérer ton workflow (Premiere + After Effects).</p>
+          <p style="margin-top:12px"><a class="btn btn-primary" href="#">Télécharger le pack</a></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DISCORD -->
+  <section id="discord">
+    <div class="container">
+      <header class="section-head">
+        <h2 class="section-title">Serveur Discord</h2>
+        <p class="section-sub">Rejoins la communauté : entraide, feedback, challenges de montage</p>
+      </header>
+      <article class="card">
+        <div class="card-body">
+          <p class="card-desc">Sur le serveur, on partage des projets, on s’entraide et on fait des défis hebdos (cut propre, titrage, sound design, etc.).</p>
+          <div class="chips" style="margin-top:12px">
+            <span class="chip">Feedback express</span>
+            <span class="chip">Ressources privées</span>
+            <span class="chip">Lives & Revues</span>
+          </div>
+          <p style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap">
+            <!-- Remplace # par ton lien d’invitation Discord -->
+            <a class="btn btn-primary" href="#">Rejoindre le serveur</a>
+            <a class="btn btn-outline" href="#contact">Demander un partenariat</a>
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <header class="section-head">
+        <h2 class="section-title">Travailler ensemble</h2>
+        <p class="section-sub">Brief rapide = réponse rapide</p>
+      </header>
+      <div class="contact">
+        <article class="card">
+          <div class="card-body">
+            <h3 class="card-title">Devis & collaborations</h3>
+            <p class="card-desc">Donne un maximum de détails pour un retour précis.</p>
+            <form class="grid" style="gap:12px; margin-top:12px" onsubmit="return false" aria-label="Formulaire de contact">
+              <div class="field">
+                <label for="nom">Ton nom</label>
+                <input id="nom" name="nom" type="text" placeholder="Jean Dupont" required>
+              </div>
+              <div class="field">
+                <label for="email">Ton email</label>
+                <input id="email" name="email" type="email" placeholder="email@exemple.com" required>
+              </div>
+              <div class="field">
+                <label for="ref">Lien de référence (facultatif)</label>
+                <input id="ref" name="ref" type="url" placeholder="https://...">
+              </div>
+              <div class="field">
+                <label for="brief">Ton projet</label>
+                <textarea id="brief" name="brief" placeholder="Format, durée, style, deadline, budget…"></textarea>
+              </div>
+              <div class="grid" style="grid-template-columns:1fr auto; gap:12px; align-items:center">
+                <p class="muted">(Le bouton d’envoi peut être connecté plus tard)</p>
+                <button class="btn btn-primary" type="submit">Envoyer</button>
+              </div>
+            </form>
+          </div>
+        </article>
+
+        <div class="grid" style="gap:var(--grid-gap)">
+          <article class="card">
+            <div class="card-body">
+              <h3 class="card-title">Réseaux</h3>
+              <p class="card-desc">Ajoute tes vrais liens ci-dessous.</p>
+              <p style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+                <a class="btn btn-outline" href="#">YouTube</a>
+                <a class="btn btn-outline" href="#">TikTok</a>
+                <a class="btn btn-outline" href="#">Discord</a>
+                <a class="btn btn-outline" href="#">Email</a>
+              </p>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-body">
+              <h3 class="card-title">FAQ</h3>
+              <div style="display:grid; gap:10px; margin-top:8px">
+                <div>
+                  <strong>• Tu montes avec quels logiciels ?</strong>
+                  <p class="card-desc">Principalement Premiere Pro et After Effects + DaVinci pour l’étalo.</p>
+                </div>
+                <div>
+                  <strong>• Peux-tu livrer des formats courts (9:16) ?</strong>
+                  <p class="card-desc">Oui : Reels/Shorts/TikTok avec sous-titres stylés et rythme agressif.</p>
+                </div>
+                <div>
+                  <strong>• Fais-tu des templates/presets ?</strong>
+                  <p class="card-desc">Oui, un pack gratuit est dispo ci-dessus et d’autres arrivent.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container foot">
+      <p>© <span id="year"></span> Edouard Mike Bayondy — Édition vidéo & Motion</p>
+      <nav style="display:flex; gap:10px">
+        <a href="#a-propos">À propos</a>
+        <a href="#contact">Contact</a>
+        <a href="#discord">Discord</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Année dynamique (pas nécessaire mais pratique)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
